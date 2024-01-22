@@ -3,7 +3,6 @@ const API_KEY = '41313462-a1bd1fc2b4382ed7475f290bb';
 const options = 'image_type=photo&orientation=horizontal&safesearch=true';
 let page = 1;
 let searchQuery = '';
-let maxPage = 0;
 
 export const PixabayAPIService = query => {
   if (searchQuery === query) {
