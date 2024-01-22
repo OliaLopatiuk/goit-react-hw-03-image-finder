@@ -5,7 +5,7 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './LoadMoreButton/LoadMoreButton';
 import { Grid } from 'react-loader-spinner';
 import { Modal } from './Modal/Modal';
-import { Img, ModalButton, ImgContainer } from './App.styled';
+import { Img } from './App.styled';
 
 export class App extends Component {
   state = {
@@ -48,7 +48,7 @@ export class App extends Component {
   };
 
   handleClick = () => {
-    this.state.status = 'loading';
+    this.setState({ status: 'loading' });
     this.fetchImages(this.state.query);
   };
 

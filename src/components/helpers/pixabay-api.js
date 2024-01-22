@@ -12,7 +12,6 @@ export const PixabayAPIService = query => {
   }
 
   searchQuery = query;
-  console.log(page);
   return fetch(
     `${BASE_URL}?key=${API_KEY}&q=${searchQuery}&${options}&page=${page}&per_page=12`
   );

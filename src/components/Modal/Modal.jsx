@@ -1,3 +1,4 @@
+import { Component } from 'react';
 import { ModalContainer, ModalBox } from './Modal.styled';
 import { createPortal } from 'react-dom';
 
