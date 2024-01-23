@@ -15,6 +15,8 @@ export class App extends Component {
     status: 'idle',
     selectedImg: '',
     imgTags: '',
+    maxPages: 0,
+    currentPage: 1,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -33,11 +35,14 @@ export class App extends Component {
         return Promise.reject(new Error('Error'));
       })
       .then(photos => {
+        console.log(photos);
         this.setState(prevState => {
           const photosUpdated = [...prevState.photos, ...photos.hits];
+          const maxPages = Math.ceil(photos.totalHits / 12);
           return {
             photos: photosUpdated,
             status: 'fulfiled',
+            maxPages,
           };
         });
       });
@@ -48,7 +53,10 @@ export class App extends Component {
   };
 
   handleClick = () => {
-    this.setState({ status: 'loading' });
+    this.setState(prevState => ({
+      status: 'loading',
+      currentPage: prevState.currentPage + 1,
+    }));
     this.fetchImages(this.state.query);
   };
 
@@ -68,9 +76,10 @@ export class App extends Component {
           photos={this.state.photos}
           onClick={this.toggleModal}
         ></ImageGallery>
-        {this.state.status === 'fulfiled' && (
-          <Button onClick={this.handleClick}></Button>
-        )}
+        {this.state.status === 'fulfiled' &&
+          this.state.currentPage !== this.state.maxPages && (
+            <Button onClick={this.handleClick}></Button>
+          )}
         {this.state.status === 'loading' && (
           <Grid
             visible={true}
